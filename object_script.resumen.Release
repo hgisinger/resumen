@@ -1,0 +1,15 @@
+INPUT(
+./release/clientes.o
+./release/DatosCliente.o
+./release/llamadas.o
+./release/movimientos.o
+./release/NuevoCliente.o
+./release/RegistroLlamada.o
+./release/resumen.o
+./release/moc_clientes.o
+./release/moc_DatosCliente.o
+./release/moc_llamadas.o
+./release/moc_movimientos.o
+./release/moc_NuevoCliente.o
+./release/moc_RegistroLlamada.o
+);

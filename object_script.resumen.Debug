@@ -1,0 +1,15 @@
+INPUT(
+./debug/clientes.o
+./debug/DatosCliente.o
+./debug/llamadas.o
+./debug/movimientos.o
+./debug/NuevoCliente.o
+./debug/RegistroLlamada.o
+./debug/resumen.o
+./debug/moc_clientes.o
+./debug/moc_DatosCliente.o
+./debug/moc_llamadas.o
+./debug/moc_movimientos.o
+./debug/moc_NuevoCliente.o
+./debug/moc_RegistroLlamada.o
+);
