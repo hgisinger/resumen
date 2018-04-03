@@ -1,11 +1,19 @@
+#include <cstdlib>
+
 #include <QApplication>
 #include <QFileInfo>
 #include <QDateTime>
 
-#include <Qvector>
-#include <Qstring>
+#include <QVector>
+#include <QSet>
+#include <QString>
 #include <QFile>
 #include <QTextStream>
+
+#include <QDir>
+#include <QDirIterator>
+
+#include <QMessageBox>
 
 #include "resumen.h"
 #include "clientes.h"
@@ -15,8 +23,12 @@ QVector<cliente> vc;
 QMap<int, QString> vdbf;
 QVector<color> colores;
 QString pathArchivos;
+QSet<QString> csv_files;
 
 using namespace std;
+
+int desde;
+int hasta;
 
 QString formatearFecha(QString aammdd)
 {
@@ -182,7 +194,12 @@ bool llamadaMayor(const llamada &l1, const llamada &l2)
 
 void buscar_llamadas(QString clienteActual, bool llenar)
 {
+    QString fileNameToSeek = ("000000" + clienteActual).right(6) + ".csv";
     QString fileName = pathArchivos + ("000000" + clienteActual).right(6) + ".csv";
+
+    if (!csv_files.contains(fileNameToSeek)) {
+        return;
+    }
 
     QFile data(fileName);
     if (!data.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -580,7 +597,23 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    desde = 1;
+    hasta = 999999;
+    if (argc > 1) {
+        desde = atoi(argv[1]);
+    }
+    if (argc > 1) {
+        hasta = atoi(argv[2]);
+    }
+
     buscar_colores();
+
+    QDirIterator csv(pathArchivos);
+    while (csv.hasNext()) {
+        csv.next();
+        csv_files.insert(csv.fileName());
+    }
+
     ClientesWidget widget;
 	
     widget.show();

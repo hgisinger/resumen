@@ -111,7 +111,7 @@ MovimientosWidget::MovimientosWidget(QString titulo, int vm, QWidget *parent): Q
 	const int LEN_RECIBO    = 15;
 	const int LEN_CHEQUE    = 9;
 	const int LEN_FECHA     = 10;
-	const int LEN_IMPORTE   = 12;
+	const int LEN_IMPORTE   = 15;
 	
 	int ancho = fontMetrics().width('x');
 	table->setColumnWidth(0, LEN_TIPO * ancho);
