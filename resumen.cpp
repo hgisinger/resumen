@@ -30,6 +30,12 @@ using namespace std;
 int desde;
 int hasta;
 
+void alert(QString str) {
+    QMessageBox msgBox;
+    msgBox.setText(str);
+    msgBox.exec();
+}
+
 QString formatearFecha(QString aammdd)
 {
     QString aux;
@@ -194,12 +200,7 @@ bool llamadaMayor(const llamada &l1, const llamada &l2)
 
 void buscar_llamadas(QString clienteActual, bool llenar)
 {
-    QString fileNameToSeek = ("000000" + clienteActual).right(6) + ".csv";
     QString fileName = pathArchivos + ("000000" + clienteActual).right(6) + ".csv";
-
-    if (!csv_files.contains(fileNameToSeek)) {
-        return;
-    }
 
     QFile data(fileName);
     if (!data.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -285,7 +286,10 @@ void buscar_llamadas(QString clienteAnterior, QString clienteActual)
     {
         QString codigo;
         codigo.setNum(i);
-        buscar_llamadas(codigo, false);
+        QString fileNameToSeek = ("000000" + codigo).right(6) + ".csv";
+        if (csv_files.contains(fileNameToSeek)) {
+            buscar_llamadas(codigo, false);
+        }
     }
 }
 
@@ -458,6 +462,8 @@ void leer_todo()
         }
     }
 
+    buscar_llamadas(clienteAnterior, QString("99999"));
+
     calcular_composicion();
 }
 
@@ -487,9 +493,15 @@ int cargar_clientes(void)
 
     QDataStream in(&file);
 
-    in.skipRawData(642);
+    in.skipRawData(641);
+    in.readRawData(buffer, 1);
+    int delta = 1;
+    if (buffer[0] == '\0') {
+        delta = 0;
+    }
 
-    while (in.readRawData(buffer, 383) > 0) {
+    while (in.readRawData(buffer + delta, 383 - delta) > 0) {
+        delta = 0;
         codigo = makeString(buffer + 1, 6);
         icod = codigo.toInt();
 
