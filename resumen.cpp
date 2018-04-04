@@ -2,10 +2,16 @@
 #include <QFileInfo>
 #include <QDateTime>
 
-#include <Qvector>
-#include <Qstring>
+#include <QVector>
+#include <QSet>
+#include <QString>
 #include <QFile>
 #include <QTextStream>
+
+#include <QDir>
+#include <QDirIterator>
+
+#include <QMessageBox>
 
 #include "resumen.h"
 #include "clientes.h"
@@ -15,8 +21,15 @@ QVector<cliente> vc;
 QMap<int, QString> vdbf;
 QVector<color> colores;
 QString pathArchivos;
+QSet<QString> csv_files;
 
 using namespace std;
+
+void alert(QString str) {
+    QMessageBox msgBox;
+    msgBox.setText(str);
+    msgBox.exec();
+}
 
 QString formatearFecha(QString aammdd)
 {
@@ -268,7 +281,10 @@ void buscar_llamadas(QString clienteAnterior, QString clienteActual)
     {
         QString codigo;
         codigo.setNum(i);
-        buscar_llamadas(codigo, false);
+        QString fileNameToSeek = ("000000" + codigo).right(6) + ".csv";
+        if (csv_files.contains(fileNameToSeek)) {
+            buscar_llamadas(codigo, false);
+        }
     }
 }
 
@@ -441,6 +457,8 @@ void leer_todo()
         }
     }
 
+    buscar_llamadas(clienteAnterior, QString("99999"));
+
     calcular_composicion();
 }
 
@@ -470,9 +488,15 @@ int cargar_clientes(void)
 
     QDataStream in(&file);
 
-    in.skipRawData(642);
+    in.skipRawData(641);
+    in.readRawData(buffer, 1);
+    int delta = 1;
+    if (buffer[0] == '\0') {
+        delta = 0;
+    }
 
-    while (in.readRawData(buffer, 383) > 0) {
+    while (in.readRawData(buffer + delta, 383 - delta) > 0) {
+        delta = 0;
         codigo = makeString(buffer + 1, 6);
         icod = codigo.toInt();
 
@@ -581,6 +605,13 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     buscar_colores();
+
+    QDirIterator csv(pathArchivos);
+    while (csv.hasNext()) {
+        csv.next();
+        csv_files.insert(csv.fileName());
+    }
+
     ClientesWidget widget;
 	
     widget.show();
