@@ -1,5 +1,3 @@
-#include <cstdlib>
-
 #include <QApplication>
 #include <QFileInfo>
 #include <QDateTime>
@@ -26,9 +24,6 @@ QString pathArchivos;
 QSet<QString> csv_files;
 
 using namespace std;
-
-int desde;
-int hasta;
 
 void alert(QString str) {
     QMessageBox msgBox;
@@ -608,15 +603,6 @@ int cargar_clientes(void)
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-
-    desde = 1;
-    hasta = 999999;
-    if (argc > 1) {
-        desde = atoi(argv[1]);
-    }
-    if (argc > 1) {
-        hasta = atoi(argv[2]);
-    }
 
     buscar_colores();
 
