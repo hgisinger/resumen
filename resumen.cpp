@@ -457,7 +457,7 @@ void leer_todo()
         }
     }
 
-    buscar_llamadas(clienteAnterior, QString("99999"));
+    buscar_llamadas(clienteAnterior, QString("100000"));
 
     calcular_composicion();
 }
