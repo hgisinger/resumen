@@ -457,7 +457,7 @@ void leer_todo()
         }
     }
 
-    buscar_llamadas(clienteAnterior, QString("99999"));
+    buscar_llamadas(clienteAnterior, QString("100000"));
 
     calcular_composicion();
 }
@@ -491,11 +491,13 @@ int cargar_clientes(void)
     in.skipRawData(641);
     in.readRawData(buffer, 1);
     int delta = 1;
+    int len = 391;
     if (buffer[0] == '\0') {
+        len = 383;
         delta = 0;
     }
 
-    while (in.readRawData(buffer + delta, 383 - delta) > 0) {
+    while (in.readRawData(buffer + delta, len - delta) > 0) {
         delta = 0;
         codigo = makeString(buffer + 1, 6);
         icod = codigo.toInt();
@@ -619,3 +621,5 @@ int main(int argc, char *argv[])
     return app.exec();
 } 
 
+
+// 281 - 408
