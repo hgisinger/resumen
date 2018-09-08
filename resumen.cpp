@@ -449,7 +449,7 @@ void leer_todo()
                 m.fecha = "";
                 m.debe = "";
                 m.haber = "";
-                m.saldo = copiar_numero(buffer, 110, 10);
+                m.saldo = copiar_numero(buffer, 106, 14);
                 m.composicion = "";
 
                 vc[vc.count() - 1].vm.append(m);
