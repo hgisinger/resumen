@@ -75,16 +75,16 @@ ClientesWidget::ClientesWidget(QWidget *parent): QWidget(parent,  Qt::WindowTitl
 
     const int LEN_CODIGO = 8;
     const int LEN_DETALLE = 35;
-    const int LEN_SALDO = 12;
+    const int LEN_SALDO = 15;
     const int LEN_FECHA = 12;
 
     int ancho = fontMetrics().width('x');
     table->setColumnWidth(0, LEN_CODIGO * ancho);
     table->setColumnWidth(1, LEN_DETALLE * ancho);
-    table->setColumnWidth(2, LEN_SALDO * ancho);
+    table->setColumnWidth(2, LEN_FECHA * ancho);
     table->setColumnWidth(3, LEN_FECHA * ancho);
     table->setColumnWidth(4, LEN_FECHA * ancho);
-    table->setColumnWidth(5, LEN_FECHA * ancho);
+    table->setColumnWidth(5, LEN_SALDO * ancho);
 
     table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
