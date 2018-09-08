@@ -76,7 +76,7 @@ ClientesWidget::ClientesWidget(QWidget *parent): QWidget(parent,  Qt::WindowTitl
     const int LEN_CODIGO = 8;
     const int LEN_DETALLE = 35;
     const int LEN_SALDO = 18;
-    const int LEN_FECHA = 12;
+    const int LEN_FECHA = 11;
 
     int ancho = fontMetrics().width('x');
     table->setColumnWidth(0, LEN_CODIGO * ancho);
