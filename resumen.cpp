@@ -37,10 +37,10 @@ QString formatearFecha(QString aammdd)
 
     if (aammdd.isEmpty())
     {
-        return "        ";
+        return "          ";
     }
 
-    aux  = aammdd.mid(6, 2);
+    aux  = aammdd.mid(6, 4);
     aux += "-";
     aux += aammdd.mid(4, 2);
     aux += "-";
@@ -347,8 +347,8 @@ void agregar_mov(QString buffer)
         m.documento   = buffer.mid(12, 18);
         m.recibo      = buffer.mid(35, 13);
         m.cheque      = buffer.mid(57, 4);
-        m.fecha       = buffer.mid(64, 8);
-        if (m.fecha == "    -  -")
+        m.fecha       = buffer.mid(62, 10);
+        if (m.fecha == "      -  -")
         {
             m.fecha = "";
         }
@@ -417,7 +417,7 @@ void leer_todo()
             agregar_mov(buffer);
             if (vc.count() > 0)
             {
-                vc[vc.count() - 1].ultima_compra = buffer.mid(64, 8);
+                vc[vc.count() - 1].ultima_compra = buffer.mid(62, 10);
             }
         }
 
