@@ -185,7 +185,7 @@ void ClientesWidget::crear_todo()
 
         if (vc[i].deuda_antigua.count() > 7)
         {
-            QDate deuda_antigua(2000 + get_int(vc[i].deuda_antigua, 6, 2),
+            QDate deuda_antigua(get_int(vc[i].deuda_antigua, 6, 4),
                                 get_int(vc[i].deuda_antigua, 3, 2),
                                 get_int(vc[i].deuda_antigua, 0, 2));
             dias = deuda_antigua.daysTo(QDate::currentDate());
