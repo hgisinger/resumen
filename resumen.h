@@ -9,8 +9,9 @@
 extern QString fecha_archivo;
 
 int string2int(QString num);
+qint64 string2long(QString num);
 QString int2string(int num);
-
+QString long2string(qint64 num);
 
 struct movimiento
 {

@@ -152,7 +152,7 @@ ClientesWidget::ClientesWidget(QWidget *parent): QWidget(parent,  Qt::WindowTitl
 
 void ClientesWidget::crear_todo()
 {
-    int saldo_total = 0;
+    qint64 saldo_total = 0;
 
     leer_todo();
     buscar_colores();
@@ -213,7 +213,7 @@ void ClientesWidget::crear_todo()
         if (vc[i].vm.size() > 0)
         {
             t = new QTableWidgetItem(vc[i].vm[vc[i].vm.size() - 1].saldo);
-            saldo_total += string2int(vc[i].vm[vc[i].vm.size() - 1].saldo);
+            saldo_total += string2long(vc[i].vm[vc[i].vm.size() - 1].saldo);
         }
         else
         {
@@ -229,7 +229,7 @@ void ClientesWidget::crear_todo()
     t->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     table->setItem(vc.count(), 0, t);
 		
-    t = new QTableWidgetItem(int2string(saldo_total));
+    t = new QTableWidgetItem(long2string(saldo_total));
     t->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     table->setItem(vc.count(), 5, t);
  }

@@ -1,7 +1,6 @@
 #include <QApplication>
 #include <QFileInfo>
 #include <QDateTime>
-
 #include <QVector>
 #include <QSet>
 #include <QString>
@@ -67,6 +66,23 @@ int string2int(QString num)
 }
 
 
+qint64 string2long(QString num)
+{
+    QString cp = "";
+    int i;
+    
+    for (i = 0; i < num.count(); i++)
+    {
+        if (num.at(i) != '.' && num.at(i) != ',')
+        {
+            cp.append(num.at(i));
+        }
+    }
+    
+    return cp.toLongLong();
+}
+
+
 QString int2string(int num)
 {
     QString aux;
@@ -108,6 +124,50 @@ QString int2string(int num)
                 break;
     }
 	
+    return aux;
+}
+
+QString long2string(qint64 num)
+{
+    QString aux;
+    QString signo = "";
+    
+    aux.setNum(num);
+    
+    if (aux.left(1) == "-")
+    {
+        signo = "-";
+        aux = aux.mid(1);
+    }
+    
+    int longitud = aux.count();
+    
+    switch (longitud)
+    {
+        case 1: aux = "0,0" + aux;
+                break;
+        case 2: aux = "0," + aux;
+                break;
+        case 3: aux = aux.mid(0, 1) + "," + aux.mid(1);
+                break;
+        case 4: aux = aux.mid(0, 2) + "," + aux.mid(2);
+                break;
+        case 5: aux = aux.mid(0, 3) + "," + aux.mid(3);
+                break;
+        case 6: aux = aux.mid(0, 1) + "." + aux.mid(1, 3) + "," + aux.mid(4);
+                break;
+        case 7: aux = aux.mid(0, 2) + "." + aux.mid(2, 3) + "," + aux.mid(5);
+                break;
+        case 8: aux = aux.mid(0, 3) + "." + aux.mid(3, 3) + "," + aux.mid(6);
+                break;
+        case 9: aux = aux.mid(0, 1) + "." + aux.mid(1, 3) + "." + aux.mid(4, 3) + "," + aux.mid(7);
+                break;
+        case 10:aux = aux.mid(0, 2) + "." + aux.mid(2, 3) + "." + aux.mid(5, 3) + "," + aux.mid(8);
+                break;
+        case 11: aux = aux.mid(0, 3) + "." + aux.mid(3, 3) + "." + aux.mid(6, 3) + "," + aux.mid(9);
+                break;
+    }
+    
     return aux;
 }
 
